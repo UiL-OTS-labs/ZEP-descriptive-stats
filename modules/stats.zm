@@ -148,12 +148,16 @@ real median(real[] values)
     real[..] copy;
     copy.size = values.size;
     int i;
+    if (values.size < 1)
+        print_error("Taking median of empty set.\n");
     while(i < values.size)
     {
         copy[i] = values[i];
         i++;
     }
+    // This is pretty slow when using more then 1e5 elements
     qsort(copy, 0, copy.size-1);
+
     return copy[copy.size/2];
 }
 
