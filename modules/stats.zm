@@ -117,6 +117,13 @@ real std(real[] values, bool population=false)
     return sqrt(variance);
 }
 
+// compute Standard Error of the mean
+real sem(real[] values, bool population=false)
+{
+    real stddev = std(values);
+    return stddev/sqrt(values.size);
+}
+
 // sorts an real[] in place.
 void qsort(real[] array, int m, int n)
 {
@@ -142,7 +149,6 @@ void qsort(real[] array, int m, int n)
    }
 }
 
-
 real median(real[] values)
 {
     real[..] copy;
@@ -155,6 +161,7 @@ real median(real[] values)
         copy[i] = values[i];
         i++;
     }
+
     // This is pretty slow when using more then 1e5 elements
     qsort(copy, 0, copy.size-1);
 

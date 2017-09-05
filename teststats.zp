@@ -25,41 +25,45 @@ void print_array(real[] values)
 on_event:start() {
     int i;
     real [..] set;
-    int min = 0;
-    int max = 1000;
-    int n   = 1000;
+
+    int min     = 0;
+    int range   = 1000;
+    int n       = 1000;
 
     if (have_option("min"))
         min = int(option_value("min"));
-    if (have_option("max"))
-        max = int(option_value("max"));
+    if (have_option("range"))
+        range = int(option_value("range"));
     if (have_option("n"))
         n   = int(option_value("n"));
     
     while (i < n)
     {
-        append(set, random(min, max));        
+        append(set, random(min, range));        
         i++;
     }
 
     println ("Stats for a set of " + n + " uniform random values between " +
-             min + " and " + max);
+             min + " and " + (min + range));
 
     //print_array(set);
 
-    println("sum(set)   = " + sum(set));
-    println("mean(set)  = " + mean(set));
-    println("max(set)   = " + max(set));
-    println("min(set)   = " + min(set));
-    println("var(set)   = " + variance(set));
-    println("std(set)   = " + std(set));
-    println("median(set)= " + median(set));
+    println("sum(set)              = " + sum(set));
+    println("mean(set)             = " + mean(set));
+    println("max(set)              = " + max(set));
+    println("min(set)              = " + min(set));
+    println("var(set)              = " + variance(set));
+    println("std(set)              = " + std(set));
+    println("sem(set)              = " + sem(set));
+    println("population var(set)   = " + variance(set, true));
+    println("population std(set)   = " + std(set, true));
+    println("population sem(set)   = " + sem(set, true));
+    println("median(set)           = " + median(set));
 
     println();
     
-
     println ("Stats for a set of " + n + " uniform random values between " +
-             min + " and " + max);
+             min + " and " + (min + range));
     real[..] empty_set = {};
     println("sum(empty_set)   = " + sum(empty_set));
     //println("mean(empty_set)  = " + mean(empty_set));// can't will result Mathematical Exception
