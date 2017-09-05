@@ -1,0 +1,74 @@
+
+import stats;
+
+void append(real[] set, real value)
+{
+    set.size = set.size + 1;
+    set[set.size - 1] = value;
+}
+
+void print_array(real[] values)
+{
+    int i;
+    print("{");
+    while (i < values.size)
+    {
+        if (i < values.size - 1)
+            print("" + values[i] + ", ");
+        else
+            print(values[i]);
+        i++;
+    }
+    println("}");
+}
+
+on_event:start() {
+    int i;
+    real [..] set;
+
+    int min     = 0;
+    int range   = 1000;
+    int n       = 1000;
+
+    if (have_option("min"))
+        min = int(option_value("min"));
+    if (have_option("range"))
+        range = int(option_value("range"));
+    if (have_option("n"))
+        n   = int(option_value("n"));
+    
+    while (i < n)
+    {
+        append(set, random(min, range));        
+        i++;
+    }
+
+    println ("Stats for a set of " + n + " uniform random values between " +
+             min + " and " + (min + range));
+
+    //print_array(set);
+
+    println("sum(set)              = " + sum(set));
+    println("mean(set)             = " + mean(set));
+    println("max(set)              = " + max(set));
+    println("min(set)              = " + min(set));
+    println("var(set)              = " + variance(set));
+    println("std(set)              = " + std(set));
+    println("sem(set)              = " + sem(set));
+    println("population var(set)   = " + variance(set, true));
+    println("population std(set)   = " + std(set, true));
+    println("population sem(set)   = " + sem(set, true));
+    println("median(set)           = " + median(set));
+
+    println();
+    
+    println ("Stats for a set of " + n + " uniform random values between " +
+             min + " and " + (min + range));
+    real[..] empty_set = {};
+    println("sum(empty_set)   = " + sum(empty_set));
+    //println("mean(empty_set)  = " + mean(empty_set));// can't will result Mathematical Exception
+    //println("max(empty_set)   = " + max(empty_set)); // results in index error.
+    //println("min(empty_set)   = " + min(empty_set)); // and once more.
+
+    terminate;
+}
